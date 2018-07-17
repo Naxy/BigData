@@ -108,12 +108,12 @@ public class JavaSQLDataSourceExample {
 
   private static void runBasicDataSourceExample(SparkSession spark) {
     // $example on:generic_load_save_functions$
-    Dataset<Row> usersDF = spark.read().load("examples/src/main/resources/users.parquet");
+    Dataset<Row> usersDF = spark.read().load("src/main/resources/users.parquet");
     usersDF.select("name", "favorite_color").write().save("namesAndFavColors.parquet");
     // $example off:generic_load_save_functions$
     // $example on:manual_load_options$
     Dataset<Row> peopleDF =
-      spark.read().format("json").load("examples/src/main/resources/people.json");
+      spark.read().format("json").load("src/main/resources/people.json");
     peopleDF.select("name", "age").write().format("parquet").save("namesAndAges.parquet");
     // $example off:manual_load_options$
     // $example on:manual_load_options_csv$
@@ -121,11 +121,11 @@ public class JavaSQLDataSourceExample {
       .option("sep", ";")
       .option("inferSchema", "true")
       .option("header", "true")
-      .load("examples/src/main/resources/people.csv");
+      .load("src/main/resources/people.csv");
     // $example off:manual_load_options_csv$
     // $example on:direct_sql$
     Dataset<Row> sqlDF =
-      spark.sql("SELECT * FROM parquet.`examples/src/main/resources/users.parquet`");
+      spark.sql("SELECT * FROM parquet.`src/main/resources/users.parquet`");
     // $example off:direct_sql$
     // $example on:write_sorting_and_bucketing$
     peopleDF.write().bucketBy(42, "name").sortBy("age").saveAsTable("people_bucketed");
@@ -151,7 +151,7 @@ public class JavaSQLDataSourceExample {
 
   private static void runBasicParquetExample(SparkSession spark) {
     // $example on:basic_parquet_example$
-    Dataset<Row> peopleDF = spark.read().json("examples/src/main/resources/people.json");
+    Dataset<Row> peopleDF = spark.read().json("src/main/resources/people.json");
 
     // DataFrames can be saved as Parquet files, maintaining the schema information
     peopleDF.write().parquet("people.parquet");
@@ -221,7 +221,7 @@ public class JavaSQLDataSourceExample {
     // $example on:json_dataset$
     // A JSON dataset is pointed to by path.
     // The path can be either a single text file or a directory storing text files
-    Dataset<Row> people = spark.read().json("examples/src/main/resources/people.json");
+    Dataset<Row> people = spark.read().json("src/main/resources/people.json");
 
     // The inferred schema can be visualized using the printSchema() method
     people.printSchema();

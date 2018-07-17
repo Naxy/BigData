@@ -104,7 +104,7 @@ public class JavaSparkSQLExample {
 
   private static void runBasicDataFrameExample(SparkSession spark) throws AnalysisException {
     // $example on:create_df$
-    Dataset<Row> df = spark.read().json("examples/src/main/resources/people.json");
+    Dataset<Row> df = spark.read().json("src/main/resources/people.json");
 
     // Displays the content of the DataFrame to stdout
     df.show();
@@ -233,7 +233,7 @@ public class JavaSparkSQLExample {
     transformedDS.collect(); // Returns [2, 3, 4]
 
     // DataFrames can be converted to a Dataset by providing a class. Mapping based on name
-    String path = "examples/src/main/resources/people.json";
+    String path = "src/main/resources/people.json";
     Dataset<Person> peopleDS = spark.read().json(path).as(personEncoder);
     peopleDS.show();
     // +----+-------+
@@ -250,7 +250,7 @@ public class JavaSparkSQLExample {
     // $example on:schema_inferring$
     // Create an RDD of Person objects from a text file
     JavaRDD<Person> peopleRDD = spark.read()
-      .textFile("examples/src/main/resources/people.txt")
+      .textFile("src/main/resources/people.txt")
       .javaRDD()
       .map(line -> {
         String[] parts = line.split(",");
@@ -297,7 +297,7 @@ public class JavaSparkSQLExample {
     // $example on:programmatic_schema$
     // Create an RDD
     JavaRDD<String> peopleRDD = spark.sparkContext()
-      .textFile("examples/src/main/resources/people.txt", 1)
+      .textFile("src/main/resources/people.txt", 1)
       .toJavaRDD();
 
     // The schema is encoded in a string
